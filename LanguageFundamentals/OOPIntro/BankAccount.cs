@@ -97,6 +97,7 @@ namespace OOPIntro
             CreditCardNumber = ccn;
             Transactions = new List<decimal>();
         }
+
         //==================================================//
 
         //==================== Methods =====================//
