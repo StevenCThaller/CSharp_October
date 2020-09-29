@@ -105,12 +105,23 @@ class SLList {
         console.log(output);
         return;
     }
+
+    // Write a method that will add to the FRONT of a singly linked list
+    // The biggest thing to keep in mind here is that adding to the front 
+    // of a singly linked list means you are setting a NEW head.
+    addToFront(value) {
+
+    }
+
+    // Write a function that REMOVES the head of a singly linked list
+    removeHead(){
+
+    }
+
+    // BONUS:
+    // Write a method that will calculate and return the average of the 
+    // singly linked list
+    average(){
+
+    }
 }
-
-let myList = new SLList();
-
-myList.head = new SLNode(10);
-myList.head.next = new SLNode(4);
-myList.head.next.next = new SLNode(7);
-
-myList.printList();
