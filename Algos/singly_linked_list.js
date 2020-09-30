@@ -186,12 +186,46 @@ class SLList {
     // Write a method that returns a boolean based on whether or not the linked
     // list contains a node with given value
     contains(value){
-
+        // Basic logic:
+        // start at the head, and check each node to see if it's the value.
+        // if at any point we find that value, we'll return true.
+        // if we reach the end of the list, return false
+        let runner = this.head; // our runner, duh.
+        while(runner != null) { // we want to check every single node
+            if(runner.value == value){ // check to see if the value matches
+                return true; // if it does, then our list does contain the value.
+            }
+            runner = runner.next; // otherwise, let's move the runner to the next node
+        }
+        return false; // if we exit the while loop, it means we never found the value, so it must not contain it.
     }
 
     // Write a method that will remove the last node from the linked list
     // HINT: You'll need to find out when you're at the SECOND TO LAST node
     removeFromBack(){
+        // Basic logic:
+        // first, check to see if the list is empty. if it is, we're done.
+        // if the list is only 1 element in length, set the head to null
+        // otherwise, let's get to the second to last node, then lop off the last node
 
+        if(this.isEmpty()){ // if the list has no nodes to remove
+            return this; // just return
+        } else if (this.head.next == null) { // if the list only has ONE node
+            this.head = null; // then set the head to null
+            return this; // and return
+        } else { // otherwise
+            let lagger = this.head; // this is how we're going to stay 1 behind the last node
+            let runner = this.head.next; // this will be the last node (eventually)
+
+            while(runner.next != null) { // running until runner.next is null will put runner at the last node, and lagger at the 2nd to last node
+                lagger = runner; // move the lagger up to the runner
+                runner = runner.next; // and move the runner to the next node
+            }
+
+            lagger.next = null; // setting lagger's .next to null effectively removes the last node from the list
+            return this; // and voila we're done!
+        }
+
+        
     }
 }

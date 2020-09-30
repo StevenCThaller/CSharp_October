@@ -1,0 +1,13 @@
+HACKATHON! WOOO!
+
+You have six hours to create a console application! Work in teams of 
+up to 4 (or solo if you REALLY want to)!
+
+Requirements:
+    - Must be interactive (i.e., shouldn't just be "dotnet run" and the whole scenario plays out)
+    - Must use a minimum of 3 classes (derived classes count!)
+
+Tips!
+    - You can actually take user input from the console through Console.ReadLine()
+        - Example: string UserInput = Console.ReadLine(); 
+          will store the user's input into a variable that you can then use to do things!
