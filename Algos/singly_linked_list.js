@@ -180,6 +180,18 @@ class SLList {
 
         // now that we've finished running through the list, let's calculate the average and return it
         return sum/length;
+    }
+
+
+    // Write a method that returns a boolean based on whether or not the linked
+    // list contains a node with given value
+    contains(value){
+
+    }
+
+    // Write a method that will remove the last node from the linked list
+    // HINT: You'll need to find out when you're at the SECOND TO LAST node
+    removeFromBack(){
 
     }
 }
