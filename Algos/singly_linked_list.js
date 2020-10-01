@@ -225,7 +225,16 @@ class SLList {
             lagger.next = null; // setting lagger's .next to null effectively removes the last node from the list
             return this; // and voila we're done!
         }
+    }
 
-        
+    // Write a method that will return the second to last value in the linked list
+    secondToLast(){
+
+    }
+
+    // Write a method that will remove the first node with a given value, and return true or false
+    // based on whether that value actually existed and was removed
+    removeVal(value){
+
     }
 }
