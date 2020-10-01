@@ -229,12 +229,34 @@ class SLList {
 
     // Write a method that will return the second to last value in the linked list
     secondToLast(){
-
+        if(this.isEmpty() || this.head.next == null){ // If the list is empty or only 1 element in length, we'll return null
+            return null;
+        }
+        let runner = this.head;// start at the first node
+        while(runner.next.next != null){ //until runner's .next has a .next of null, we want to move down the line
+            runner = runner.next;
+        }
+        return runner.value; // at the point where runner.next.next == null, runner is the second to last node, so let's return its value!
     }
 
     // Write a method that will remove the first node with a given value, and return true or false
     // based on whether that value actually existed and was removed
     removeVal(value){
-
+        if(this.isEmpty()){ // if the list is empty, there's nothing to remove
+            return false;
+        } else if (this.head.value == value){ // if the first node is the one we want to remove
+            this.removeHead(); // we can just use our remove head method we already built
+            return true; // and return true!
+        } else {
+            let runner = this.head; // start the runner at the head of the list
+            while(runner.next != null){ // I'm going to use while runner.next != null because I'm going to be checking the next node each step of the way
+                if(runner.next.value == value){ // if the next node has our desired value
+                    runner.next = runner.next.next; // set runner's .next to the removed node's .next
+                    return true; // and return true
+                }
+                runner = runner.next; // move runner to the next node
+            }
+            return false; // if we reached the end of our list, we never found the node, so there's nothing to remove.
+        }
     }
 }
