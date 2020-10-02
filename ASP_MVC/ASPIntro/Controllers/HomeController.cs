@@ -17,9 +17,39 @@ namespace ASPIntro.Controllers
         }
 
         [HttpGet("name/{MyName}")]
-        public string DisplayParameterName(string MyName)
+        public ViewResult DisplayParameterName(string MyName)
         {
-            return $"According to the url, you are {MyName}";
+            return View("DisplayParameterName");
+        }
+
+        [HttpGet("form")]
+        public ViewResult MyForm()
+        {
+            return View("MyForm");
+        }
+
+        [HttpPost("formsubmit")]
+        public ViewResult DisplayFormData(string name, int age)
+        {
+            ViewBag.Name = name;
+            ViewBag.Age = age;
+            return View("DisplayFormData");
+        }
+
+        [HttpGet("gosomewhereelse")]
+        public IActionResult GoElsewhere()
+        {
+            return Redirect("/somewhereelse"); // when returning a Redirect, we must pass in the URL we are redirecting to
+            return RedirectToAction("Elsewhere"); // when returning a RedirectToAction, we pass in the METHOD name
+
+            // If we are using RedirectToAction to redirect to a method whose url contains a route parameter
+            // return RedirectToAction("MethodName", new { parameterName: parameterValue });
+        }
+
+        [HttpGet("somewhereelse")]
+        public ViewResult Elsewhere()
+        {
+            return View("Elsewhere");
         }
     }
 }

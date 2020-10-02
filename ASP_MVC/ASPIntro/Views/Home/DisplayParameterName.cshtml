@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    @{
+        List<string> StudentNames = new List<string>
+        {
+            "Daniel",
+            "Kristen",
+            "Kim",
+            "James"
+        };
+
+        string TA = "Ryan Alumbaugh";
+    }
+    <h1>These are the students showing up according to Zoom</h1>
+
+    <ul>
+        @foreach(string student in StudentNames)
+        {
+            if(student.Length < 5)
+            {
+                <li>@student</li>
+            }
+        }
+    </ul>
+
+    <h2>This is currently my TA:</h2>
+    @if(TA == "Ismel Salazar")
+    {
+        <p>Wait, that's not my TA</p>
+    } 
+    else if(TA == "Dathan Wong")
+    {
+        <p>That's also not my TA...</p>
+    }
+    else 
+    {
+        <p>That's right, Ryan is my TA</p>
+    }
+
+</body>
+</html>

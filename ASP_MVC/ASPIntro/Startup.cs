@@ -27,7 +27,7 @@ namespace ASPIntro
                 app.UseDeveloperExceptionPage();
             }
 
-
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

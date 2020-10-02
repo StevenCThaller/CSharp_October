@@ -259,4 +259,21 @@ class SLList {
             return false; // if we reached the end of our list, we never found the node, so there's nothing to remove.
         }
     }
+
+    // Write a method that takes another singly linked list as a parameter, and concatenates it to the end
+    // of ths one
+
+    // EXAMPLE:
+    // if this list is 5 -> 3 -> 1 -> 
+    // and we call concat(list2) where list2 is 7 -> 2 -> 8 ->
+    // then this list should become 5 -> 3 -> 1 -> 7 -> 2 -> 8 ->
+    concat(list){
+
+    }
+
+    // Write a method that takes the node with the smallest value and moves it to the front
+    // of the linked list
+    moveMinToFront(){
+
+    }
 }
