@@ -1,0 +1,27 @@
+@using ModelsModelsModels.Models
+@model User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form asp-action="CreateUser" asp-controller="Home" method="post">
+        <span asp-validation-for="FirstName"></span>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName">
+        <br>
+        <span asp-validation-for="LastName"></span>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName">
+        <br>
+        <span asp-validation-for="Email"></span>
+        <label asp-for="Email"></label>
+        <input type="text" asp-for="Email">
+        <br>
+        <input type="submit" value="Submit!">
+    </form>
+</body>
+</html>

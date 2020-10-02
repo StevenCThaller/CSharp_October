@@ -268,12 +268,45 @@ class SLList {
     // and we call concat(list2) where list2 is 7 -> 2 -> 8 ->
     // then this list should become 5 -> 3 -> 1 -> 7 -> 2 -> 8 ->
     concat(list){
-
+        if(this.isEmpty()){ // if the list is empty, we'll just set this list's head to the new list's head
+            this.head = list.head;
+            list.head = null; // and set the list's head to null to clear it
+            return this;
+        } else {
+            let runner = this.head; // set our runner
+            while(runner.next != null) { // get to the end of our current list
+                runner = runner.next;
+            }
+            runner.next = list.head; // set the last node of this list to the first node of the passed in list
+            list.head = null; // and clear the old list
+            return this;
+        }
     }
 
     // Write a method that takes the node with the smallest value and moves it to the front
     // of the linked list
     moveMinToFront(){
+        if(this.isEmpty() || this.head.next == null){ // if the list is empty or only 1 element long, then there's nothing to do
+            return this;
+        }
 
+        let min = this.head; // we'll start by assuming our head is the smallest value
+        let minPrev = null; // we'll need to keep track of the minimum's previous node
+        let runner = this.head; // and of course our runner
+        while(runner.next != null){ // loop through everything
+            if(runner.next.value < min.value){ // if the next node's value is smaller than the min
+                min = runner.next; // we'll set the min node to that next node
+                minPrev = runner; // and the minPrev to the current runner
+            }
+            runner = runner.next;
+        }
+        if(minPrev == null) { // if minPrev is still null, then the first node is already the smallest node
+            return this;
+        }
+        // otherwise
+        minPrev.next = min.next; // let's set minPrev's .next to min's .next
+        min.next = this.head; // set min.next to the head of the list (putting it at the front)
+        this.head = min; // and assign the head to now be the min node
+        return this;
     }
 }

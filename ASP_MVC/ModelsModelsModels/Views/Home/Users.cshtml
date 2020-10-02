@@ -1,0 +1,17 @@
+@using ModelsModelsModels.Models
+@model List<User>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>We have some people!</h1>
+    @foreach(User user in Model)
+    {
+        <p>@user.FirstName @user.LastName</p>
+    }
+</body>
+</html>
