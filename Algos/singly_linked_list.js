@@ -310,3 +310,8 @@ class SLList {
         return this;
     }
 }
+
+module.exports = {
+    SLNode,
+    SLList
+}
