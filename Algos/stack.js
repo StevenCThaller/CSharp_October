@@ -6,7 +6,7 @@ const { SLNode, SLList } = require('./singly_linked_list');
 
 class ArrayStack {
     constructor(){
-        this.stack = [];
+        this.items = [];
     }
 
     // Adds a new item and returns the size of the SLL
@@ -38,9 +38,9 @@ class ArrayStack {
 
 class SLLStack {
     constructor(){
-        this.stack = new SLList();
+        this.items = new SLList();
     }
-    
+
     // Adds a new item and returns the size of the SLL
     push(value){
 
