@@ -1,0 +1,215 @@
+INITIAL CREATION
+
+**************** If this is the first web app you've created *******************
+Terminal:
+    Windows: setx ASPNETCORE_ENVIRONMENT Development
+    PowerShell: [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT","Development","User")
+    Mac/Linux: export ASPNETCORE_ENVIRONMENT=Development
+
+********************************************************************************
+
+TERMINAL
+    dotnet new web --no-https -o YourProjectNamehere
+    ** cd into the project **
+    dotnet new viewimports -o Views/
+    dotnet add package Pomelo.EntityFrameworkCore.MySql --version 3.1.1
+    dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.5
+
+********************************************************************************
+FOLDER CREATION
+    wwwroot/
+        |__ css/
+        |__ img/
+    Models/
+    Controllers/
+    ** optional **
+    Extensions/
+
+********************************************************************************
+MODELS
+New file: MyContext.cs
+
+
+    using Microsoft.EntityFrameworkCore;
+    namespace YourNamespace.Models
+    { 
+        // the MyContext class representing a session with our MySQL 
+        // database allowing us to query for or save data
+        public class MyContext : DbContext 
+        { 
+            public MyContext(DbContextOptions options) : base(options) { }
+
+            // DON'T FORGET TO COME BACK AND ADD YOUR DBSETS
+        }
+    }
+
+********************************************************************************
+APPSETTINGS.JSON
+    ...
+    "AllowedHosts": "*",
+    //ADD this
+    "DBInfo": {
+        "Name": "MySQLconnect",
+        "ConnectionString": "server=localhost;userid=root;password=root;port=3306;database=insertdbnamehere;SslMode=None"
+                            //                                      ^^ make sure to change this according to your own MySQL password
+    }
+
+********************************************************************************
+STARTUP.CS
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using YourNamespace.Models;
+
+namespace YourNamespace
+{
+    public class Startup
+    {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSession();
+            services.AddDbContext<MyContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+            app.UseStaticFiles();
+            app.UseSession();
+            app.UseMvc();
+        }
+    }
+}
+
+********************************************************************************
+CONTROLLERS
+    Create HomeController.cs // name can be whatever you want, as long as the last part is Controller.cs
+    using System;
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using YourNamespace.Models;
+
+    namespace YourNamespace.Controllers     //be sure to use your own project's namespace!
+    {
+        public class HomeController : Controller   
+        {
+            private MyContext _context;
+
+            public HomeController(MyContext context)
+            {
+                _context = context;
+            }
+
+            //for each route this controller is to handle:
+            [HttpGet("")]     //Http Method and the route
+            public IActionResult Index() //When in doubt, use IActionResult
+            {
+                return View("Index"); //or whatever you want to return
+            }
+        }
+    }
+
+********************************************************************************
+VIEWS
+    Create subfolder called Home (assuming your controller is HomeController.cs)
+    Inside of that folder, create the cshtml files for your methods. Following this cheatsheet,
+    that would be Index.cshtml
+    
+********************************************************************************
+MODELS
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    namespace YourNamespace.Models
+    {
+        public class YourModelName
+        {
+            // Go crazy with your attributes and validations!
+        }
+    }
+
+********************************************************************************
+IF YOU WANT TO STORE WHOLE OBJECTS IN JSON
+    Make a folder called Extensions
+    New file called SessionExtension.cs
+
+    using System.Text.Json;
+    using Microsoft.AspNetCore.Http;
+
+    namespace Session
+    {
+        public static class SessionExtensions
+        {
+            public static void SetObjectAsJson(this ISession session, string key, object value)
+            {
+                session.SetString(key, JsonSerializer.Serialize(value));
+            }
+
+            public static T GetObjectFromJson<T>(this ISession session, string key)
+            {
+                string value = session.GetString(key);
+
+                return value == null ? default(T) : JsonSerializer.Deserialize<T>(value);
+            }
+        }
+    }
+
+********************************************************************************
+USING STATEMENT INFO
+using System; --> This is what allows us to use things like Console.WriteLine and 
+                DateTime. Pretty safe bet to just always have this
+
+using System.Collections.Generic; --> This is where Lists and Dictionaries come from
+                                    Use this whenever you want to use lists (models and controllers mostly)
+
+using System.ComponentModel.DataAnnotations; --> This is what gives us the ability to
+                use thos nifty validations, and declaring fields as the Key
+                Needed in all of our models
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;                 --> All of these are just boilerplate 
+                                                    and needed in Startup.cs
+
+using Microsoft.AspNetCore.Mvc; --> This is what allows us to use the MVC framework itself.
+                                    Needed in Startup.cs and Controllers
+
+using Microsoft.AspNetCore.Http; --> Lets us use Session!
+                                    Needed in our controllers
+
+using Microsoft.EntityFrameworkCore; --> Gives us our .Include() and .ThenInclude() for querying our db
+                                    Needed in controllers (can toss into models for safe measure)
+
+using Microsoft.Extensions.Configuration; --> Required in our Startup.cs as the IConfiguration datatype is 
+                                    integral to setting our app up for use with Entity
+
+using System.ComponentModel.DataAnnotations.Schema; --> Required for fields in our models that we want to use 
+                                            but DO NOT want to be mapped to the database. Things like the confirm password field.
+                                            It's important for the functionality of our user registration, but we don't want that in the actual database
+                                            Used in any model that has a field we apply the [NotMapped] annotation to.
+
+using Microsoft.AspNetCore.Identity; --> This is where our PasswordHasher<> comes from. We need this to encrypt our passwords in the database.
+                                        Used in the controller that is handling our login and registration
