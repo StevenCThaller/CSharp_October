@@ -75,4 +75,7 @@ class SLLStack {
     }
 }
 
+module.exports = {
+    SLLStack
+}
 

@@ -1,4 +1,5 @@
 const { SLNode, SLList } = require('./singly_linked_list');
+const { SLLStack } = require('./stack');
 // A queue is a first in first out data structure.
 // Design a class to represent a queue using an array to store the items.
 // After that, design a class to represent a queue using a singly linked list
@@ -67,5 +68,19 @@ class SLLQueue{
     // returns the first item without removing it
     front(){
         return this.items.head; // start of the list is front of the queue
+    }
+
+    // - Write a method on the Queue class that, given another queue, will return whether they are equal (same items in same order)
+    // - Use ONLY the provided queue methods, do not manually index the queue items, no extra array or objects
+    // - Restore the queues to their original state
+    compareQueues(queue){
+
+    }
+
+    // - write a method on the Queue class that returns whether or not the queue is a palindrome
+    // - use only 1 stack as additional storage (no additional arrays / objects)
+    // - do not manually index the queue, use the provided queue methods and stack methods, restore the queue to original state when done
+    queueIsPalindrome(){
+
     }
 }
