@@ -18,7 +18,7 @@ class ArrayQueue {
 
     // removes an item and returns it
     dequeue(){
-        return this.items.splice(0,1); // ez
+        return this.items.splice(0,1)[0]; // ez
     }
 
     // returns a boolean based on whether or not the queue is empty
@@ -40,9 +40,28 @@ class ArrayQueue {
     // - DO NOT manually index the queue items, only use the provided queue methods, use no additional arrays or objects for storage
     // - restore the queue to it's original state before returning    
     sumOfHalvesEqual(){
+        let count = this.size(); // we're gonna need to know what "half" is, so we'll find the size
+        let sum1 = 0; // for storing the sum of the first half
+        let sum2 = 0; // for storing the sum of the second half
 
+        // find sum of first half
+        for(let i = 0; i < count/2; i++){
+            let dequeued = this.dequeue(); // dequeue to add to the sum
+            sum1 += dequeued; // add the dequeued entry to the sum
+            this.enqueue(dequeued); // and re-add it to the queue
+        }
+
+        // find the sum of the second half
+        for(let i = count/2; i < count; i++) {
+            let dequeued = this.dequeue();
+            sum2 += dequeued;
+            this.enqueue(dequeued);
+        }
+
+        return sum1 == sum2; // then return whether or not they're the same
     }
 }
+
 
 class SLLQueue{
     constructor(){
@@ -140,10 +159,25 @@ class StackQueue{
     }
 
     enqueue(value){
+        // The idea is that if we empty our first stack into our second stack, the top of the second stack will be what was previously
+        // the bottom of the first stack
+        while(!this.items.isEmpty()){
+            this.secondStack.push(this.items.pop().value);
+        }
+        // then we add the new value onto the top of the second stack
+        this.items.push(value);
+        // and then empty it all back from stack 2 into stack 1
+        while(!this.secondStack.isEmpty()){
+            this.items.push(this.secondStack.pop().value);
+        }
 
+        // which is the same as adding to the back of the queue. 
+
+        // NOTE: This is the case because I decided I wanted the top of my stack to be the front of my queue
+        return this.items.size();
     }
 
     dequeue(){
-        
+        return this.items.pop();
     }
 }

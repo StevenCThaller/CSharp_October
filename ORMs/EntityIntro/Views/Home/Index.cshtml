@@ -1,5 +1,5 @@
 @using EntityIntro.Models
-@model List<Vampire>
+@model Victim
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,18 +21,37 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(Vampire vamp in Model)
+                @foreach(Vampire vamp in ViewBag.AllVampires)
                 {
                     <tr>
                         <td>@vamp.VampireId</td>
-                        <td>@vamp.Name</td>
+                        <td><a href="/vampire/@vamp.VampireId">@vamp.Name</a></td>
                         <td>@vamp.Birthday</td>
-                        <td>@vamp.Victims</td>
+                        <td>@vamp.Victims.Count</td>
                     </tr>
                 }
             </tbody>
         </table>
-        <h2>These Vampires Do Almost All of the Killing</h2>
+        <h2>Add a Victim</h2>
+        <form asp-action="CreateVictim" asp-controller="Home" method="post">
+            <div class="form-group row">
+                <label class="col-sm-4">Name: </label>
+                <input asp-for="Name" class="col-sm-8 form-control">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Vampire: </label>
+                <select asp-for="VampireId">
+                    @foreach(Vampire vamp in ViewBag.AllVampires)
+                    {
+                        <option value="@vamp.VampireId">@vamp.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group row">
+                <input type="submit" value="Add Victim" class="col-sm-4 offset-sm-4 btn btn-primary">
+            </div>
+        </form>
+        @* <h2>These Vampires Do Almost All of the Killing</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -53,7 +72,7 @@
                     </tr>
                 }
             </tbody>
-        </table>
+        </table> *@
     </div>
 </body>
 </html>

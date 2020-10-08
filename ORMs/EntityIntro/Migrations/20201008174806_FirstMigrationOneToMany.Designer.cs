@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityIntro.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20201007190839_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20201008174806_FirstMigrationOneToMany")]
+    partial class FirstMigrationOneToMany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,12 +37,43 @@ namespace EntityIntro.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Victims")
-                        .HasColumnType("int");
-
                     b.HasKey("VampireId");
 
                     b.ToTable("Vampires");
+                });
+
+            modelBuilder.Entity("EntityIntro.Models.Victim", b =>
+                {
+                    b.Property<int>("VictimId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("VampireId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VictimId");
+
+                    b.HasIndex("VampireId");
+
+                    b.ToTable("Victims");
+                });
+
+            modelBuilder.Entity("EntityIntro.Models.Victim", b =>
+                {
+                    b.HasOne("EntityIntro.Models.Vampire", "Vampire")
+                        .WithMany("Victims")
+                        .HasForeignKey("VampireId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

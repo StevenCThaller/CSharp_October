@@ -8,5 +8,6 @@ namespace EntityIntro.Models
 
         // our dbsets
         public DbSet<Vampire> Vampires { get; set; }
+        public DbSet<Victim> Victims { get; set; }
     }
 }

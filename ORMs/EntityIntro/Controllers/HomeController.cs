@@ -21,7 +21,9 @@ namespace EntityIntro.Controllers
         public ViewResult Index()
         {
             // // get all vampires from database
-            List<Vampire> AllVampires = _context.Vampires.ToList();
+            ViewBag.AllVampires = _context.Vampires
+                .Include(v => v.Victims)
+                .ToList();
             // // get ONE vampire from the database, with an id of 2
             // Vampire SecondVampire = _context.Vampires.FirstOrDefault(v => v.VampireId == 2);
             // // get all vampires who have killed fewer than 3 victims
@@ -29,9 +31,26 @@ namespace EntityIntro.Controllers
 
             
 
-            return View("Index", AllVampires);
+            return View("Index");
         }
 
+        [HttpGet("vampire/{VampireId}")]
+        public IActionResult OneVampire(int VampireId)
+        {
+            Vampire ToDisplay = _context.Vampires
+                .Include(v => v.Victims)
+                .FirstOrDefault(v => v.VampireId == VampireId);
+            return View("OneVampire", ToDisplay);
+        }
+
+
+        [HttpPost("createvictim")]
+        public IActionResult CreateVictim(Victim FromForm)
+        {
+            _context.Add(FromForm);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         [HttpPost("create")]
         public IActionResult CreateVampire(Vampire FromForm)
