@@ -35,6 +35,13 @@ class ArrayQueue {
     front(){
         return this.items[0]; // first item in queue is index 0 in the array
     }
+
+    // - create a method on the array Queue class that returns whether or not the sum of the first half of the queue is equal to the sum of the second half
+    // - DO NOT manually index the queue items, only use the provided queue methods, use no additional arrays or objects for storage
+    // - restore the queue to it's original state before returning    
+    sumOfHalvesEqual(){
+
+    }
 }
 
 class SLLQueue{
@@ -121,5 +128,22 @@ class SLLQueue{
         }
 
         return palindrome;
+    }
+}
+// - create enqueue and dequeue methods on a new queue class that uses ONLY 2 stacks to store your items
+// - use only the provided stack methods from the two stacks (do not directly index)
+// - i.e., how do you make a FIFO (First in First Out) data structure using two LIFO (Last in First Out) Stack data structures?
+class StackQueue{
+    constructor(){
+        this.items = new SLLStack();
+        this.secondStack = new SLLStack();
+    }
+
+    enqueue(value){
+
+    }
+
+    dequeue(){
+        
     }
 }
