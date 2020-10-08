@@ -71,8 +71,7 @@ namespace EntityIntro.Controllers
         [HttpPost("update/{VampireId}")]
         public IActionResult UpdateVampire(int VampireId, Vampire FromForm)
         {
-            Vampire Retrieved = _context.Vampires.FirstOrDefault(v => v.VampireId == VampireId);
-            if(Retrieved == null) 
+            if(_context.Vampires.Any(v => v.VampireId == VampireId)) 
             {
                 return RedirectToAction("Index");
             }
