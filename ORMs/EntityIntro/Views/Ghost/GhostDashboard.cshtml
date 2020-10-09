@@ -1,0 +1,45 @@
+@using EntityIntro.Models
+@model List<Ghost>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <a asp-action="Index" asp-controller="Home">Go Back to the Vampires</a>
+        <h1>We're on the ghost side now!!</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Evidence</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Ghost ghost in Model)
+                {
+                    <tr>
+                        <td>@ghost.GhostId</td>
+                        <td><a asp-action="AddEvidenceToGhost" asp-controller="Ghost" asp-route-GhostId="@ghost.GhostId">@ghost.Type</a></td>
+                        <td>@ghost.Description</td>
+                        <td>
+                            <ul>
+                                @foreach(GhostHasEvidence ghe in ghost.GhostHasEvidence)
+                                {
+                                    <li>@ghe.Evidence.Name</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -9,5 +9,9 @@ namespace EntityIntro.Models
         // our dbsets
         public DbSet<Vampire> Vampires { get; set; }
         public DbSet<Victim> Victims { get; set; }
+
+        public DbSet<Ghost> Ghosts { get; set; }
+        public DbSet<Evidence> Evidence { get; set; }
+        public DbSet<GhostHasEvidence> GhostsHaveEvidence { get; set; }
     }
 }
