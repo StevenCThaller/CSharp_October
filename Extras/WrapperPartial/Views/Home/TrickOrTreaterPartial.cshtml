@@ -1,0 +1,20 @@
+@model TrickOrTreater
+
+<div class="form-group row">
+    <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="Name"></span>
+    <label asp-for="Name" class="col-sm-4"></label>
+    <input asp-for="Name" class="col-sm-8 form-control">
+</div>
+<div class="form-group row">
+    <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="Costume"></span>
+    <label asp-for="Costume" class="col-sm-4"></label>
+    <input asp-for="Costume" class="col-sm-8 form-control">
+</div>
+<div class="form-group row">
+    <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="CandiesCollected"></span>
+    <label asp-for="CandiesCollected" class="col-sm-4"></label>
+    <input asp-for="CandiesCollected" class="col-sm-8 form-control">
+</div>
+<div class="form-group row">
+    <input type="submit" value="Submit" class="col-sm-4 offset-sm-4 btn btn-primary">
+</div>

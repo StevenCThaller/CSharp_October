@@ -1,0 +1,21 @@
+@model House
+<form asp-action="SubmitHouse" asp-controller="Home" method="post">
+    <div class="form-group row">
+        <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="Address"></span>
+        <label asp-for="Address" class="col-sm-4"></label>
+        <input asp-for="Address" class="col-sm-8 form-control">
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="RoofColor"></span>
+        <label asp-for="RoofColor" class="col-sm-4"></label>
+        <input asp-for="RoofColor" class="col-sm-8 form-control">
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="WallColor"></span>
+        <label asp-for="WallColor" class="col-sm-4"></label>
+        <input asp-for="WallColor" class="col-sm-8 form-control">
+    </div>
+    <div class="form-group row">
+        <input type="submit" value="Submit" class="col-sm-4 offset-sm-4 btn btn-primary">
+    </div>
+</form>
