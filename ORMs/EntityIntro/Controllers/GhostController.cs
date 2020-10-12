@@ -55,6 +55,5 @@ namespace EntityIntro.Controllers
             _context.SaveChanges();
             return RedirectToAction("GhostDashboard");
         }
-
     }
 }

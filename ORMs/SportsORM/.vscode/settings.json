@@ -1,0 +1,26 @@
+{
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "editor.wordWrap": "on",
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/venv/**": true
+    },
+    "emmet.includeLanguages": {
+        "aspnetcorerazor": "html",
+        "razor": "html"
+    },
+    "[csharp]": {
+        "editor.defaultFormatter": "Leopotam.csharpfixformat",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "csharpfixformat.sort.usings.splitGroups": false,
+    "csharpfixformat.style.braces.onSameLine": false,
+    "csharpfixformat.style.spaces.beforeParenthesis": false,
+    "csharpfixformat.style.spaces.insideEmptyBraces": true,
+    "csharpfixformat.style.newline.maxAmount": 3
+}
