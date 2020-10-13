@@ -1,0 +1,10 @@
+@model Color
+<form asp-action="CreateColor" asp-controller="Home" method="post">
+    <div class="form-group row">
+        <label asp-for="Name" class="col-sm-4"></label>
+        <input asp-for="Name" class="col-sm-8 form-control">
+    </div>
+    <div class="form-group row">
+        <input type="submit" value="Submit User" class="col-sm-4 offset-sm-4 btn btn-primary">
+    </div>
+</form>

@@ -81,13 +81,23 @@ class BSTree {
 
     // Write a method that determines whether or not the binary search tree contains a node with a given value
     contains(value){
-
+        let runner = this.root; // We need our runner to traverse through the binary search tree
+        while(runner != null) { // while the runner isn't null, we'll do 1 of 3 things:
+            if(runner.value == value) return true; // if the runner has the value we're looking for, then obviously the tree contains that value, so return true.
+            else if(value > runner.value) runner = runner.right; // if the value we're looking for is greater than the current node's value, we'll go to the right
+            else runner = runner.left; // otherwise, it must be less than the current node's value, so go to the left
+        }
+        return false; // if we finished running through the tree in that manner, it means runner is null, and the tree does not contain the given value
     }
 
     // Write a method that determines and returns the range of the binary search tree.
     // The range of a BST is the difference between the largest and smallest elements.
     range(){
-
+        if(this.isEmpty()){ // if the tree is empty, we'll just return 0 and console log that it's empty
+            console.log("Tree's empty.");
+            return 0;
+        }
+        return this.max() - this.min(); // SUPER straightforward.
     }
 }
 
