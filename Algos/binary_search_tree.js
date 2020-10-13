@@ -78,9 +78,25 @@ class BSTree {
         console.log(`${toPrint}${runner.value}`);
         this.printHelper(toPrint, runner.left);
     }
+
+    // Write a method that determines whether or not the binary search tree contains a node with a given value
+    contains(value){
+
+    }
+
+    // Write a method that determines and returns the range of the binary search tree.
+    // The range of a BST is the difference between the largest and smallest elements.
+    range(){
+
+    }
 }
 
 let myTree = new BSTree();
 myTree.root = new BSNode(10);
-myTree.root.left = new BSNode(4);
-myTree.root.right = new BSNode(12);
+    myTree.root.left = new BSNode(4);
+        myTree.root.left.left = new BSNode(2);
+        myTree.root.left.right = new BSNode(7);
+    myTree.root.right = new BSNode(12);
+        myTree.root.right.left = new BSNode(11);
+        myTree.root.right.right = new BSNode(17);
+
