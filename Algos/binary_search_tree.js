@@ -99,6 +99,18 @@ class BSTree {
         }
         return this.max() - this.min(); // SUPER straightforward.
     }
+
+    // Write a method that adds a new node to the binary search tree in the appropriate place
+    // REMEMBER!! greater than or equal to the right, less than to the left!
+    insert(value){
+        
+    }
+
+    // BONUS:
+    // The same as above, but recursively!
+    insertRecursive(value /* and any other parameters you may need */) {
+        
+    }
 }
 
 let myTree = new BSTree();
