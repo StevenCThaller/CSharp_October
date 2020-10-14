@@ -103,22 +103,53 @@ class BSTree {
     // Write a method that adds a new node to the binary search tree in the appropriate place
     // REMEMBER!! greater than or equal to the right, less than to the left!
     insert(value){
-        
+        if(this.isEmpty()){ // if the tree is empty, the new node is going to be the new root
+            this.root = new BSNode(value); 
+            return this;
+        }
+
+        let runner = this.root; // start our runner at the root
+        while(runner != null) { // ideally, we'll never actually reach a point where runner is null, but for the sake of having a way to iterate
+            if(value >= runner.value) { // if the value we want to add is greater than or equal to the runner's value
+                if(runner.right == null) { // we'll first check to see if the runner's .right is null
+                    runner.right = new BSNode(value); // if it is, that's where we want to add our new node
+                    return this; // and return
+                } else { //otherwise, if there IS  node to the right
+                    runner = runner.right; // move the runner to that node
+                }
+            } else { // if the value we are looking to add is LESS than the current node's value
+                if(runner.left == null) { // check to see if there IS a runner.left
+                    runner.left = new BSNode(value); // and if there is not, that's where the new node will go
+                    return this; // and then return this!
+                } else { // otherwise, we want to move the runner to the left
+                    runner = runner.left;
+                }
+            }
+        }
+        return false; // let's just drop this here in case?
     }
 
     // BONUS:
     // The same as above, but recursively!
-    insertRecursive(value /* and any other parameters you may need */) {
-        
+    insertRecursive(value, runner = this.root, prev = null) {
+        if(this.root == null) { // edge case: same as usual: if the root is null, new node is the root
+            this.root = new BSNode(value);
+            return this;
+        }
+
+        if(runner == null) { // break case: when the runner reaches null
+            if(prev.value <= value) prev.right = new BSNode(value); // our prev parameter is used to keep track of the previous node so we know if the new node should be to the right or left of it
+            else prev.left = new BSNode(value);
+            return this; // after the new node's been created, return the tree
+        } else if(value >= runner.value){ // if we still need to traverse
+            return this.insertRecursive(value, runner.right, runner); // make recursive call to the right
+        } else {
+            return this.insertRecursive(value, runner.left, runner); // or left, depending on which way it needs to go.
+        }
     }
 }
 
 let myTree = new BSTree();
-myTree.root = new BSNode(10);
-    myTree.root.left = new BSNode(4);
-        myTree.root.left.left = new BSNode(2);
-        myTree.root.left.right = new BSNode(7);
-    myTree.root.right = new BSNode(12);
-        myTree.root.right.left = new BSNode(11);
-        myTree.root.right.right = new BSNode(17);
-
+myTree.insert(15).insertRecursive(10).insert(20);
+myTree.insert(17).insert(25).insert(5).insert(13);
+myTree.printTree();
