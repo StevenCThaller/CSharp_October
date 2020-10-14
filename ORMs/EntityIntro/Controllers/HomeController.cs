@@ -34,6 +34,25 @@ namespace EntityIntro.Controllers
             return View("Index");
         }
 
+        [HttpGet("vampire/new")]
+        public IActionResult NewVampire()
+        {
+            return View("NewVampire");
+        }
+
+        [HttpPost("vampire/new")]
+        public IActionResult SubmitVampire(Vampire FromForm)
+        {
+            if(ModelState.IsValid)
+            {
+                return RedirectToAction("NewVampire");
+            }
+            else
+            {
+                return NewVampire();
+            }
+        }
+
         [HttpGet("vampire/{VampireId}")]
         public IActionResult OneVampire(int VampireId)
         {

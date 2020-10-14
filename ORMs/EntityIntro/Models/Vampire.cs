@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using EntityIntro.Extensions.Validations;
 
 namespace EntityIntro.Models
 {
@@ -8,7 +9,12 @@ namespace EntityIntro.Models
     {
         [Key]
         public int VampireId { get; set; }
+        [Required]
+        [MinLength(3)]
+        [NoDracula]
         public string Name { get; set; }
+
+        [PastDate]
         public DateTime Birthday { get; set; }
         // Navigation Property
         public List<Victim> Victims { get; set; }
