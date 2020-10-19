@@ -309,6 +309,11 @@ class SLList {
         this.head = min; // and assign the head to now be the min node
         return this;
     }
+
+    // Write a method that will reverse a singly linked list in place without creating a new list.
+    reverse(){
+
+    }
 }
 
 module.exports = {
