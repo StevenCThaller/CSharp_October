@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojodachi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            function GameOver(data){
+                if(data.fullness <= 0 || data.happiness <= 0){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function PopulatePage(data){
+                $("#fullness").html(data.fullness);
+                $("#happiness").html(data.happiness);
+                $("#meals").html(data.meals);
+                $("#energy").html(data.energy);
+
+                $("#dachiPic").attr("src", data.imageUrl);
+
+                if(GameOver(data)){
+                    $("#message").html("Your Dojodachi has died, please play again. But like... better");
+                    $("#dachiPic").attr("src", "https://comicvine1.cbsistatic.com/uploads/original/11112/111120209/3921702-batman%27s%20tombstone.jpg");
+                    $("#buttons").html(
+                        "<form class='col-sm-4' action='/reset' method='post'><input type='submit' value='Reset'></form>"
+                    )
+                } else {
+                    $("#message").html(data.message);
+                    $("#buttons").html(
+                        "<form class='col-sm-4' action='/feed' method='post'><input type='submit' value='Feed'></form><form class='col-sm-4' action='/play' method='post'><input type='submit' value='Play'></form><form class='col-sm-4' action='/work' method='post'><input type='submit' value='Work'></form><form class='col-sm-4' action='/sleep' method='post'><input type='submit' value='Sleep'></form>"
+                    )
+                }
+            }
+
+            $.get("/dachi/retrieve", data => {
+                PopulatePage(data);
+            })
+
+            $(document).on('submit', 'form', function(e){
+                e.preventDefault();
+                $.post($(this).attr('action'), data => PopulatePage(data));
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">Fullness: <span id="fullness"></span></div>
+            <div class="col-sm-3">Happiness: <span id="happiness"></span></div>
+            <div class="col-sm-3">Meals: <span id="meals"></span></div>
+            <div class="col-sm-3">Energy: <span id="energy"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <img id="dachiPic" alt="Batman">
+            </div>
+            <div class="col-sm-12">
+                <p id="message"></p>
+            </div>
+        </div>
+        <div id="buttons" class="row">
+        </div>
+
+    </div>
+</body>
+</html>

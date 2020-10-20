@@ -324,7 +324,24 @@ class SLList {
 
     // Write a method that returns a boolean based on whether or not there is a loop in the singly linked list
     hasLoop(){
-        
+        // the general idea of this algo is that if we have 2 runners, and one is going twice as fast, if there is a loop, then eventually
+        // the faster runner will wrap back around to where the slower runner is.
+
+        if(this.isEmpty() || this.head.next == null) { // our runners will be set to the first and second nodes so we need to make sure they exist
+            return false;
+        }
+
+        let cap = this.head.next; // our fast runner
+        let sam = this.head;  // our slow runner
+
+        while(cap.next != null && cap.next.next != null) { // if our fast runner ever reaches/sees null, there's no loop
+            if(cap == sam){ // if cap and sam meet up in the same spot, it means cap has run all the way around and caught back up
+                return true; // so there is a loop
+            }
+            cap = cap.next.next; // move cap up twice
+            sam = sam.next; // move sam up once
+        }
+        return false; // if we got knocked out of the while loop, it means the list ended
     }
 }
 
