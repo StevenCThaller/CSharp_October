@@ -311,8 +311,20 @@ class SLList {
     }
 
     // Write a method that will reverse a singly linked list in place without creating a new list.
-    reverse(){
+    reverse(runner = this.head, prev = null){
+        if(runner = null){
+            this.head = prev;
+            return this;
+        }
 
+        this.reverse(runner.next, runner);
+        runner.next = prev;
+        return this;
+    }
+
+    // Write a method that returns a boolean based on whether or not there is a loop in the singly linked list
+    hasLoop(){
+        
     }
 }
 
